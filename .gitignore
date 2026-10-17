@@ -1,0 +1,28 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ---- CioNote 运行时产物（含隐私，切勿提交）----
+launcher.log
+*.log
+.cionote_config.json      # 用户配置（API Base / 模型 / DPAPI 加密密钥）
+.cionote_ai.log           # AI 连接诊断日志
+
+# ---- 打包产物 ----
+build/
+dist/
+*.spec
+CioNote.exe
+
+# ---- 本地笔记库 / 草稿 ----
+vault/
+my notes/
+
+# ---- 调试与临时 ----
+_*.png
+_*.tmp
+.DS_Store
+Thumbs.db
