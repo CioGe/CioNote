@@ -9,6 +9,7 @@
 # 本软件以 MIT 许可证开源发布，全文见项目根目录下的 LICENSE 文件。
 # 摘要：可自由使用、修改、分发（含商用），只需保留版权声明。
 import os
+import sys
 import json
 import time
 import threading
@@ -27,6 +28,22 @@ OLLAMA_HOST = "http://localhost:11434"
 DEFAULT_MODEL = "qwen2.5:3b"
 CONFIG_FILE = os.path.join(os.path.expanduser("~"), ".cionote_config.json")
 AI_LOG_FILE = os.path.join(os.path.expanduser("~"), ".cionote_ai.log")
+
+# 应用图标：开发时在 assets/ 里，PyInstaller 打包后在 sys._MEIPASS 里
+if getattr(sys, "frozen", False):
+    _ASSET_DIR = os.path.join(getattr(sys, "_MEIPASS", os.path.dirname(sys.executable)), "assets")
+else:
+    _ASSET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+APP_ICON = os.path.join(_ASSET_DIR, "logo.ico")
+
+
+def _apply_app_icon(win):
+    """给窗口设置应用图标；图标文件缺失时静默跳过，不影响启动。"""
+    try:
+        if os.path.exists(APP_ICON):
+            win.iconbitmap(APP_ICON)
+    except Exception:
+        pass
 # 旧版（PyNote 时期）的配置文件，仅用于一次性迁移，之后不再读取
 _LEGACY_CONFIG_FILE = os.path.join(os.path.expanduser("~"), ".pynote_config.json")
 
@@ -1699,6 +1716,7 @@ class CioNoteApp:
         """配置在线大模型 API（OpenAI 兼容接口）"""
         dlg = tk.Toplevel(self.root)
         dlg.title("Online API Settings / 在线API设置")
+        _apply_app_icon(dlg)
         dlg.transient(self.root)
         dlg.grab_set()
         # 高度要装得下说明文字和底部两个按钮；原来 360 会把 Save/Cancel 挤出可视区
@@ -2006,6 +2024,7 @@ class CioNoteApp:
 
 def main():
     root = tk.Tk()
+    _apply_app_icon(root)
     app = CioNoteApp(root)
     root.mainloop()
 
