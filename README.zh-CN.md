@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/logo.png" width="140" alt="CioNote logo"/></p>
+
 # 📝 CioNote —— 本地笔记 + AI 助手
 
 **[English](README.md)** | 简体中文

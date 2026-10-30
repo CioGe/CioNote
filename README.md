@@ -1,5 +1,7 @@
 ﻿<div align="center">
 
+<img src="assets/logo.png" width="140" alt="CioNote logo"/>
+
 # 📝 CioNote
 
 **A local-first note app with a built-in AI assistant — pure Python, zero dependencies.**
